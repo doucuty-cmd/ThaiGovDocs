@@ -5,8 +5,7 @@ from docx import Document
 from docx.shared import Pt
 from docx.oxml.ns import qn
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-from docx2pdf import convert
-import pythoncom
+import sys
 
 app = Flask(__name__)
 
@@ -139,13 +138,26 @@ def generate():
         
         # Convert to PDF if requested
         if form_data.get('generate_pdf', False):
-            pdf_path = os.path.join(OUTPUT_DIR, "Output.pdf")
-            pythoncom.CoInitialize()
-            try:
-                convert(output_path, pdf_path)
-            finally:
-                pythoncom.CoUninitialize()
-            return jsonify({"docx_path": output_path, "pdf_path": pdf_path})
+            # PDF conversion using docx2pdf requires Microsoft Word (Windows or macOS).
+            # On Linux (e.g., Railway) PDF conversion via COM is not available. Return
+            # a helpful message instead of attempting an unsupported operation.
+            if sys.platform == 'win32' or sys.platform == 'darwin':
+                from docx2pdf import convert
+                import pythoncom
+                pdf_path = os.path.join(OUTPUT_DIR, "Output.pdf")
+                pythoncom.CoInitialize()
+                try:
+                    convert(output_path, pdf_path)
+                finally:
+                    pythoncom.CoUninitialize()
+                return jsonify({"docx_path": output_path, "pdf_path": pdf_path})
+            else:
+                # Non-Windows/macOS runtime: skip PDF conversion and inform caller.
+                return jsonify({
+                    "docx_path": output_path,
+                    "pdf_path": None,
+                    "warning": "PDF conversion is not available on this platform."
+                })
         
         return jsonify({"docx_path": output_path})
     
