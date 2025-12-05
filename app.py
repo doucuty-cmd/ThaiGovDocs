@@ -5,18 +5,8 @@ from docx import Document
 from docx.shared import Pt
 from docx.oxml.ns import qn
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-import sys
-
-# docx2pdf and pythoncom are Windows-only (pywin32). Guard imports so the
-# app can run on Linux-based hosts (Vercel/Render) without installation errors.
-DOCX2PDF_AVAILABLE = False
-if sys.platform == "win32":
-    try:
-        from docx2pdf import convert
-        import pythoncom
-        DOCX2PDF_AVAILABLE = True
-    except Exception:
-        DOCX2PDF_AVAILABLE = False
+from docx2pdf import convert
+import pythoncom
 
 app = Flask(__name__)
 
@@ -149,13 +139,6 @@ def generate():
         
         # Convert to PDF if requested
         if form_data.get('generate_pdf', False):
-            if not DOCX2PDF_AVAILABLE:
-                # On Linux serverless hosts we cannot run docx2pdf (requires MS Word/pywin32).
-                return jsonify({
-                    "docx_path": output_path,
-                    "pdf_error": "PDF conversion unavailable on this platform."
-                }), 400
-
             pdf_path = os.path.join(OUTPUT_DIR, "Output.pdf")
             pythoncom.CoInitialize()
             try:

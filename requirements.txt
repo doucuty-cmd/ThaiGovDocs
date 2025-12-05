@@ -1,5 +1,5 @@
 Flask==3.0.0
 python-docx==1.0.1
+docx2pdf==0.1.8
 python-dateutil==2.8.2
-pywin32==306; sys_platform == "win32"
-gunicorn
+pywin32==306
