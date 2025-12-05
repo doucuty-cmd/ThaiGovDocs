@@ -1,0 +1,247 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form1.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+</head>
+<body>
+    <div class="container">
+
+        <a href="{{ url_for('landing') }}" class="back-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            กลับหน้าหลัก
+        </a>
+
+        <header>
+            <h1>{{ title }}</h1>
+        </header>
+
+        <main>
+            <!-- Basic Information Section -->
+            <section class="form-section">
+                <h2>ข้อมูลพื้นฐาน</h2>
+                <form id="basicForm">
+                    <div class="form-group">
+                        <label for="department">เลือกส่วนราชการ:</label>
+                        <select id="department" name="department" required>
+                            {% for dept in departments %}
+                                <option value="{{ dept }}">{{ dept }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">วันที่ยื่นเรื่อง:</label>
+                        <input type="date" id="date" name="date" 
+                               value="{{ today.isoformat() }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">หัวข้อเรื่อง:</label>
+                        <input type="text" id="subject" name="subject" 
+                               value="ขออนุญาตินำนักเรียนเข้าร่วมกิจกรรม" required>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Activity Information Section -->
+            <section class="form-section">
+                <h2>ข้อมูลกิจกรรม</h2>
+                <form id="activityForm">
+                    <div class="form-group">
+                        <label for="activity_name">ชื่อกิจกรรม:</label>
+                        <input type="text" id="activity_name" name="activity_name" 
+                               value="การแข่งขันพัฒนาโปรแกรมคอมพิวเตอร์แห่งประเทศไทย" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">สถานที่:</label>
+                        <input type="text" id="location" name="location" 
+                               value="อาคารกองอำนวยการอุทยานวิทยาศาสตร์ ภาคตะวันออกเฉียงเหนือ จังหวัดขอนแก่น" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>วันที่จัดกิจกรรม:</label>
+                        <div class="date-range">
+                            <input type="date" class="date_input" name="start_date" 
+                                   value="{{ today.isoformat() }}" required>
+                            <span class="date-separator">ถึง</span>
+                            <input type="date" class="date_input" name="end_date" 
+                                   value="{{ today.isoformat() }}" required>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Student List Section -->
+            <section class="form-section">
+                <h2>รายชื่อนักเรียน</h2>
+                <div class="student-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="student_title">คำนำหน้า</label>
+                            <select id="student_title" name="student_title">
+                                <option value="นาย">นาย</option>
+                                <option value="นางสาว">นางสาว</option>
+                                <option value="เด็กชาย">เด็กชาย</option>
+                                <option value="เด็กหญิง">เด็กหญิง</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="student_firstname">ชื่อ</label>
+                            <input type="text" id="student_firstname" name="student_firstname" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="student_lastname">นามสกุล</label>
+                            <input type="text" id="student_lastname" name="student_lastname" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="student_grade">ระดับชั้น</label>
+                            <select id="student_grade" name="student_grade">
+                                {% for i in range(1, 7) %}
+                                    <option value="{{ i }}">ม.{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="student_room">ห้อง</label>
+                            <select id="student_room" name="student_room">
+                                {% for i in range(1, 20) %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" onclick="addStudent()" class="btn-add">เพิ่มนักเรียน</button>
+                </div>
+
+                <!-- Student List -->
+                <div id="studentList" class="student-list">
+                    <!-- Students will be added here dynamically -->
+                </div>
+            </section>          
+            
+            <!-- Teacher List Section -->
+            <section class="form-section">
+                <h2>รายชื่อครูผู้ควบคุม</h2>
+                <div class="teacher-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="teacher_title">คำนำหน้า</label>
+                            <select id="teacher_title" name="teacher_title">
+                                <option value="นาย">นาย</option>
+                                <option value="นาง">นาง</option>
+                                <option value="นางสาว">นางสาว</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="teacher_firstname">ชื่อ</label>
+                            <input type="text" id="teacher_firstname" name="teacher_firstname">
+                        </div>
+                        <div class="form-group">
+                            <label for="teacher_lastname">นามสกุล</label>
+                            <input type="text" id="teacher_lastname" name="teacher_lastname">
+                        </div>
+                        <div class="form-group">
+                            <label for="teacher_department">กลุ่มสาระ</label>
+                            <select id="teacher_department" name="teacher_department">
+                                {% for dept in departments %}
+                                    <option value="{{ dept }}">{{ dept }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-add" onclick="addTeacher()">เพิ่มครู</button>
+                </div>
+
+                <!-- Teacher List -->
+                <div id="teacherList" class="teacher-list">
+                    <!-- Teachers will be added here dynamically -->
+                </div>
+            </section>
+
+            <!-- Document Issuer Section -->
+            <section class="form-section">
+                <h2>ข้อมูลผู้ออกเอกสาร</h2>
+                <form id="issuerForm">
+                    <div class="form-group">
+                        <label for="issuer_name">ชื่อผู้ออกเอกสาร:</label>
+                        <input type="text" id="issuer_name" name="issuer_name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="issuer_position">ตำแหน่ง:</label>
+                        <input type="text" id="issuer_position" name="issuer_position" required>
+                    </div>
+
+                    <!-- แก้ไขส่วนปุ่มสร้างเอกสาร -->
+                    <div class="button-group">
+                        <button type="button" onclick="generateDocument('docx')" class="btn-generate" data-type="docx">
+                            สร้างเอกสาร DOCX
+                        </button>
+                        <button type="button" onclick="generateDocument('pdf')" class="btn-generate" data-type="pdf">
+                            สร้างเอกสาร PDF
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Document Preview Section -->
+            <section class="form-section preview-section">
+                <h2>ตัวอย่างเอกสาร (อย่างไม่เป็นทางการ)</h2>
+                <div class="memo-preview">
+                    <div class="memo-header">
+                        <div class="memo-title">บันทึกข้อความ</div>
+                    </div>
+                    
+                    <div class="memo-content">
+                        <div class="memo-row">
+                            <span class="memo-label">ส่วนราชการ</span>
+                            <span id="preview_department" class="memo-text">{{ departments[0] }}</span>
+                        </div>
+
+                        <div class="memo-row">
+                            <span class="memo-label">ที่</span>
+                            <span class="memo-text">...........................</span>
+                            <span class="memo-label">วันที่</span>
+                            <span id="preview_date" class="memo-text"></span>
+                        </div>
+
+                        <div class="memo-row">
+                            <span class="memo-label">เรื่อง</span>
+                            <span id="preview_subject" class="memo-text"></span>
+                        </div>
+
+                        <div class="memo-row">
+                            <span class="memo-label">เรียน</span>
+                            <span class="memo-text">ผู้อำนวยการโรงเรียนปทุมเทพวิทยาคาร</span>
+                        </div>
+
+                        <div id="preview_content" class="memo-body">
+                            <!-- Content will be inserted here by JavaScript -->
+                        </div>
+                        
+                    <div class="issuer_preview">
+                        <div class="memo-box">
+                            <span id="preview_issuer_name" class="memo-text">Issuer Name</span>
+                        </div>
+                        <div class="memo-box">
+                            <span id="preview_issuer_position" class="memo-text">Issuer Position</span>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

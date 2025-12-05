@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เว็บไซต์เพื่อสร้างเอกสารทางราชการ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+    <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+</head>
+
+<script>
+    // รอให้ DOM โหลดเสร็จก่อน
+    document.addEventListener('DOMContentLoaded', function() {
+        const navbar = document.querySelector('.navbar');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        // จัดการ scroll effect
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // จัดการ smooth scroll เมื่อคลิกที่ nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // จัดการ active state ของ nav links
+        window.addEventListener('scroll', function() {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.scrollY >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    });
+</script>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="nav-logo">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
+                <img src="{{ url_for('static', filename='images/world-class.png') }}" alt="World Class" class="logo-sub">
+            </div>
+            <div class="nav-links">
+                <a href="#templates" class="nav-link">Template เอกสาร</a>
+                <a href="#how-to" class="nav-link">วิธีการใช้งาน</a>
+                <a href="#book" class="nav-link">ลูกเล่ม</a>
+                <a href="#team" class="nav-link">คณะผู้จัดทำ</a>
+            </div>
+        </div>
+    </nav>    
+
+    <!-- Hero Section -->
+    <section class="top" id="top">
+        <div class="hero-content">
+            <div class="hero-logos">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="hero-logo">
+                <img src="{{ url_for('static', filename='images/world-class.png') }}" alt="World Class" class="hero-logo-sub">
+            </div>
+            <h1>เว็บไซต์เพื่อสร้างเอกสารทางราชการ</h1>
+            <p>เว็บไซต์นี้เป็นส่วนนึ่งของรายวิชา I30202 โรงเรียนปทุมเทพวิทยาคาร</p>
+            <p1 class="student-names" style="text-align: center; width: 100%; margin: 0 auto;">
+                นายธนกร พงษากลาง | นายนพกร นุดี | นายภูมิรพี ปานิเสน | นายฉัททัณฑ์ เพททริ | นายธีรสุต ศรีจันทร์บาล | นายพงศพัศ ธรรมวงศา | นายพงษ์พิพัฒน์ สอนกุลภักดี
+            </p1>
+        </div>
+        <div class="hero-bg"></div>
+    </section>
+
+    <!-- Templates Section -->
+    <section class="templates" id="templates">
+        <h2>Template ยอดนิยม</h2>
+        <div class="template-grid">
+            <!-- Template 1 -->
+            <div class="template-card">
+                <div class="template-preview">
+                    <img src="{{ url_for('static', filename='images/memo-preview.png') }}" 
+                         alt="บันทึกข้อความ" 
+                         onerror="this.src='https://via.placeholder.com/300x200'">
+                </div>
+                <div class="template-content">
+                    <h3>บันทึกข้อความ</h3>
+                    <p>สร้างบันทึกข้อความขออนุญาตนำนักเรียนเข้าร่วมกิจกรรม พร้อมระบุรายชื่อนักเรียนและครูผู้ควบคุม</p>
+                    <a href="{{ url_for('memo') }}" class="btn btn-primary">เริ่มใช้งาน</a>
+                </div>
+            </div>
+
+            <!-- Template 2 -->
+            <div class="template-card">
+                <div class="template-preview">
+                    <img src="{{ url_for('static', filename='images/report-preview.png') }}" 
+                         alt="รายงานการเดินทาง" 
+                         onerror="this.src='https://via.placeholder.com/300x200'">
+                </div>
+                <div class="template-content">
+                    <h3>รายงานการเดินทาง</h3>
+                    <p>สร้างรายงานการเดินทางไปราชการ พร้อมรายละเอียดค่าใช้จ่ายและเอกสารประกอบ</p>
+                    <a href="#" class="btn btn-disabled">เร็วๆ นี้</a>
+                </div>
+            </div>
+
+            <!-- Template 3 -->
+            <div class="template-card">
+                <div class="template-preview">
+                    <img src="{{ url_for('static', filename='images/leave-preview.png') }}" 
+                         alt="แบบฟอร์มลา" 
+                         onerror="this.src='https://via.placeholder.com/300x200'">
+                </div>
+                <div class="template-content">
+                    <h3>แบบฟอร์มลา</h3>
+                    <p>สร้างแบบฟอร์มการลาประเภทต่างๆ พร้อมระบบคำนวณวันลาและตรวจสอบสิทธิ์อัตโนมัติ</p>
+                    <a href="#" class="btn btn-disabled">เร็วๆ นี้</a>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+<!-- How To Section -->
+<section class="how-to" id="how-to">
+    <h2>วิธีการใช้งาน</h2>
+    <div class="steps">
+        <div class="step">
+            <div class="step-number">1</div>
+            <video autoplay loop muted playsinline class="step-video">
+                <source src="https://cdn.discordapp.com/attachments/956103263659368458/1336381820295708742/COM_1.mp4?ex=67a39a0e&is=67a2488e&hm=bd4b6d88eeb0afcc2c998bf1c6992aebe35c4990518781e33a593db2eee22ca5&" type="video/mp4">
+            </video>
+            <h3>เลือก Template</h3>
+            <p>เลือก Template ที่ต้องการจากระบบ เพื่อเริ่มสร้างเอกสาร</p>
+        </div>
+ 
+        <div class="step">
+            <div class="step-number">2</div>
+            <video autoplay loop muted playsinline class="step-video">
+                <source src="https://cdn.discordapp.com/attachments/956103263659368458/1336381821713125407/COM_2_1.mp4?ex=67a39a0f&is=67a2488f&hm=c2bee1ddb774ca99ab67ba21f617e63361f0038fb7b990383bef85f11677310a&" type="video/mp4">
+            </video>
+            <h3>กรอกข้อมูล</h3>
+            <p>กรอกข้อมูลที่จำเป็นในแบบฟอร์มที่กำหนด</p>
+        </div>
+ 
+        <div class="step">
+            <div class="step-number">3</div>
+            <video autoplay loop muted playsinline class="step-video">
+                <source src="https://cdn.discordapp.com/attachments/956103263659368458/1336381823286116503/COM_3_1.mp4?ex=67a39a0f&is=67a2488f&hm=f31b38546c62aad734da0e1b68cdc16b0d430621c244cf6ade1f4e18cd209ddd&" type="video/mp4">
+            </video>
+            <h3>สร้างเอกสาร</h3>
+            <p>ระบบจะสร้างเอกสารให้โดยอัตโนมัติ พร้อมให้ดาวน์โหลด</p>
+        </div>
+    </div>
+ </section>
+
+    <!-- Book Section -->
+    <section class="book" id="book">
+        <h2>ลูกเล่มเอกสาร</h2>
+        <div class="book-content">
+            <a href="https://drive.google.com/drive/folders/1x2fLhaG-oMSb3LlbBf9fL55ak3nGOVuj?usp=sharing" class="btn-drive">Google Drive</a>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team" id="team">
+        <h2>คณะผู้จัดทำ</h2>
+        <div class="team-grid">
+            <!-- member 1 - Project Leader -->
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/Member 1.png') }}" 
+                    alt="ฉัททัณฑ์ เพททริ" 
+                    class="member-image"
+                    onerror="this.src='https://via.placeholder.com/120'">
+                <h3>นายฉัททัณฑ์ เพททริ</h3>
+                <p class="member-class">ชั้น ม.5/3 เลขที่ 5</p>
+                <hr class="divider">
+                <p class="member-role">หัวหน้าโครงการ และ ผู้พัฒนาเว็บไซต์</p>
+            </div>
+
+            <!-- member 2 - Database Manager -->
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/Member 2.png') }}" 
+                    alt="ธนกร พงษากลาง" 
+                    class="member-image"
+                    onerror="this.src='https://via.placeholder.com/120'">
+                <h3>นายธนกร พงษากลาง</h3>
+                <p class="member-class">ชั้น ม.5/3 เลขที่ 1</p>
+                <hr class="divider">
+                <p class="member-role">รองหัวหน้าโครงการ</p>
+            </div>
+
+            <!-- member 3 - Frontend Developer -->
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/Member 3.png') }}" 
+                    alt="นพกร นุดี" 
+                    class="member-image"
+                    onerror="this.src='https://via.placeholder.com/120'">
+                <h3>นายนพกร นุดี</h3>
+                <p class="member-class">ชั้น ม.5/3 เลขที่ 2</p>
+                <hr class="divider">
+                <p class="member-role">ผู้ช่วย</p>
+            </div>
+
+            <!-- member 4 - Backend Developer -->
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/Member 4.png') }}" 
+                    alt="ภูมิรพี ปานิเสน" 
+                    class="member-image"
+                    onerror="this.src='https://via.placeholder.com/120'">
+                <h3>นายภูมิรพี ปานิเสน</h3>
+                <p class="member-class">ชั้น ม.5/3 เลขที่ 3</p>
+                <hr class="divider">
+                <p class="member-role">ผู้ช่วย</p>
+            </div>
+
+            <!-- member 5 - UX Designer -->
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/Member 5.png') }}" 
+                    alt="ธีรสุต ศรีจันทร์บาล" 
+                    class="member-image"
+                    onerror="this.src='https://via.placeholder.com/120'">
+                <h3>นายธีรสุต ศรีจันทร์บาล</h3>
+                <p class="member-class">ชั้น ม.5/3 เลขที่ 8</p>
+                <hr class="divider">
+                <p class="member-role">ผู้ช่วย</p>
+            </div>
+
+            <!-- member 6 - System Analyst -->
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/Member 6.png') }}" 
+                    alt="พงศพัศ ธรรมวงศา" 
+                    class="member-image"
+                    onerror="this.src='https://via.placeholder.com/120'">
+                <h3>นายพงศพัศ ธรรมวงศา</h3>
+                <p class="member-class">ชั้น ม.5/3 เลขที่ 9</p>
+                <hr class="divider">
+                <p class="member-role">ผู้ช่วย</p>
+            </div>
+
+            <!-- member 7 - QA Engineer -->
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/Member 7.png') }}" 
+                    alt="พงษ์พิพัฒน์ สอนกุลภักดี" 
+                    class="member-image"
+                    onerror="this.src='https://via.placeholder.com/120'">
+                <h3>นายพงษ์พิพัฒน์ สอนกุลภักดี</h3>
+                <p class="member-class">ชั้น ม.5/3 เลขที่ 11</p>
+                <hr class="divider">
+                <p class="member-role">ผู้ช่วย</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logos">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="footer-logo">
+            <img src="{{ url_for('static', filename='images/world-class.png') }}" alt="World Class" class="footer-logo-sub">
+        </div>
+        <h2>เว็บไซต์เพื่อสร้างเอกสารทางราชการ</h2>
+        <p>เว็บไซต์นี้เป็นส่วนหนึ่งของรายวิชา I30202 โรงเรียนปทุมเทพวิทยาคาร</p>
+        <p1 class="student-names" style="text-align: center; width: 100%; margin: 0 auto; font-size: smaller;">
+            นายธนกร พงษากลาง | นายนพกร นุดี | นายภูมิรพี ปานิเสน | นายฉัททัณฑ์ เพททริ | นายธีรสุต ศรีจันทร์บาล | นายพงศพัศ ธรรมวงศา | นายพงษ์พิพัฒน์ สอนกุลภักดี
+        </p1>
+        <p class="copyright">© {{ year }} โรงเรียนปทุมเทพวิทยาคาร. All rights reserved.</p>
+    </footer>
+</body>
+</html>

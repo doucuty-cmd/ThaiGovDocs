@@ -1,0 +1,420 @@
+/* ================================================================================
+   Variables & Root Settings
+   ================================================================================ */
+   :root {
+    /* Colors */
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --secondary: #1e40af;
+    --background: #F7F7F7;
+    --border: #e2e8f0;
+    --text: #1e293b;
+    
+    /* Status Colors */
+    --danger: #ef4444;
+    --danger-hover: #dc2626;
+    --success: #10b981;
+    
+    /* Grays */
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    
+    /* Effects */
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ================================================================================
+   Back Button
+   ================================================================================ */
+   .back-button {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 0.5rem;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: var(--card-shadow);
+    transition: all 0.2s ease;
+    z-index: 100;
+}
+
+.back-button:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.back-button:active {
+    transform: translateY(0);
+}
+
+
+/* ================================================================================
+   Base & Reset
+   ================================================================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Sarabun', sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background-color: var(--background);
+}
+
+/* ================================================================================
+   Layout & Container
+   ================================================================================ */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: var(--card-shadow);
+}
+
+/* ================================================================================
+   Typography
+   ================================================================================ */
+h1 {
+    color: var(--primary);
+    font-size: 2.5rem;
+    margin: 0;
+    padding: 0;
+    font-weight: 700;
+}
+
+h2 {
+    color: var(--secondary);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 3px;
+    background-color: var(--primary);
+    border-radius: 2px;
+}
+
+/* ================================================================================
+   Form Sections
+   ================================================================================ */
+.form-section {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s ease;
+}
+
+.form-section:hover {
+    transform: translateY(-2px);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0.75rem 0;
+}
+
+/* ================================================================================
+   Form Elements
+   ================================================================================ */
+label {
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+}
+
+input, select {
+    width: auto;
+    padding: 0.75rem;
+    border: 1.5px solid var(--border);
+    border-radius: 0.5rem;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    background-color: white;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.date-range {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;  /* ทำให้ container กว้างเต็มที่ */
+}
+
+.date-range input {
+    flex: 1;      /* ให้ input ขยายเต็มพื้นที่ที่เหลือ */
+    width: 100%;  /* ทำให้ input กว้างเต็มที่ */
+}
+
+.date-separator {
+    color: var(--text);
+    font-weight: 500;
+}
+
+/* ================================================================================
+   Buttons
+   ================================================================================ */
+.btn-add {
+    width: 100%;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.875rem 0;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.btn-add:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.btn-remove {
+    background-color: var(--danger);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+}
+
+.btn-remove:hover {
+    background-color: var(--danger-hover);
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn-generate {
+    flex: 1;
+    background-color: var(--success);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.btn-generate:hover {
+    transform: translateY(-2px);
+    filter: brightness(110%);
+}
+
+/* ================================================================================
+   Lists
+   ================================================================================ */
+.student-list {
+    margin-top: 2rem;
+    border-top: 2px solid var(--border);
+    padding-top: 1.5rem;
+}
+
+.student-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    margin-bottom: 0.75rem;
+    background-color: white;
+    transition: all 0.2s ease;
+}
+
+.student-item:hover {
+    border-color: var(--primary);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* ================================================================================
+   Preview Section
+   ================================================================================ */
+.preview-section {
+    margin-top: 3rem;
+}
+
+.memo-preview {
+    background: white;
+    padding: 4rem 3rem;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.memo-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.memo-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.memo-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.memo-row {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+}
+
+.memo-label {
+    min-width: 100px;
+    font-weight: 500;
+}
+
+.memo-text {
+    flex: 1;
+}
+
+.issuer_preview {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: 2rem;
+}
+
+.memo-box {
+    margin-bottom: 0.5rem;
+    width: 400px;
+    text-align: center;
+}
+
+/* ================================================================================
+   Responsive Design
+   ================================================================================ */
+@media (max-width: 1024px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .form-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .memo-preview {
+        padding: 2rem 1.5rem;
+    }
+
+    .memo-body {
+        padding-left: 0;
+    }
+
+    .issuer_preview {
+        padding-right: 1rem;
+    }
+
+    .memo-box {
+        width: 100%;
+    }
+
+    .back-button {
+        top: 1rem;
+        left: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+}
+
+@media (max-width: 640px) {
+
+    .teacher-form .form-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .date-range {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .form-section {
+        padding: 1.5rem;
+    }
+}

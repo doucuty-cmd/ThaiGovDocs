@@ -1,0 +1,73 @@
+/* ================================================================================
+   Variables & Root Settings
+   ================================================================================ */
+   :root {
+    /* Colors */
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --secondary: #1e40af;
+    --background: #F7F7F7;
+    --text: #1e293b;
+    --border: #e2e8f0;
+    
+    /* Status Colors */
+    --danger: #ef4444;
+    --danger-hover: #dc2626;
+    --success: #10b981;
+    
+    /* Grays */
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    
+    /* Effects */
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ================================================================================
+   Base Reset
+   ================================================================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ================================================================================
+   Common Base Styles
+   ================================================================================ */
+body, html {
+    width: 100%;
+    min-height: 100vh;
+    font-family: 'Sarabun', sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background-color: var(--background);
+}
+
+/* ================================================================================
+   Common Animations
+   ================================================================================ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

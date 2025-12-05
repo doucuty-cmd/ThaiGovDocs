@@ -1,0 +1,674 @@
+/* landing.css */
+
+/* Variables */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --secondary: #1e40af;
+    --background: #F7F7F7;
+    --border: #e2e8f0;
+    --text: #1e293b;
+    --danger: #ef4444;
+    --success: #10b981;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --real-gray: #F7F7F7;
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,html {
+    width: 100%;
+    height: auto;
+    font-family: 'Sarabun', sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background-color: var(--background);
+}
+
+/* Navbar */
+#navbar {
+    backdrop-filter: blur(8px);
+    position: fixed;
+    width: 100%;
+    padding: 1rem;
+    top: 0;
+    z-index: 999;
+    transition: all 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.01);  /* Light translucent background */
+}
+
+.nav-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+.logo-sub {
+    height: 30px;
+    width: auto;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 400;  /* Lighter text weight */
+    font-size: 0.9rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--primary);
+    transition: width 0.3s ease, bottom 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--primary);
+    transform: translateY(-2px);  /* Slight upward motion on hover */
+}
+
+.nav-link:hover::after {
+    width: 100%;
+    bottom: -8px;  /* Slightly move the underline for a floating effect */
+}
+
+.nav-link.active {
+    color: var(--primary);
+}
+
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* ปรับ padding-top ของ section แรก */
+.top {
+    padding-top: calc(6rem + 80px);
+}
+
+/* Hero Section */
+.top {
+    position: relative;
+    padding: 6rem 2rem;
+    text-align: center;
+    background-image: url("/static/images/hero-bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero {
+    background-color: #ffff;
+}
+
+.top {
+    position: relative;
+    padding: 6rem 2rem;
+    text-align: center;
+    background-image: url("/static/images/hero-bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px; /* ลดความสูงลง */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem; /* ลดระยะห่างระหว่าง elements */
+}
+
+.hero-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.hero-logo {
+    height: 120px;
+    width: auto;
+}
+
+.hero-logo-sub {
+    height: 100px;
+    width: auto;
+}
+
+.top h1 {
+    font-size: 2.5rem;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+}
+
+.top p {
+    color: #4a4a4a;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Templates Section */
+.templates {
+    background-color: #F7F7F7;
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.templates h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    color: var(--text);
+}
+
+.template-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.template-card {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.template-card:hover {
+    transform: translateY(-5px);
+}
+
+.template-preview {
+    height: 200px;
+    background: #ffff;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+}
+
+.template-preview img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+.template-content {
+    padding: 1.5rem;
+}
+
+.template-content h3 {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+
+.template-content p {
+    color: var(--gray-500);
+    font-size: 0.9rem;
+    margin-bottom: 3rem;
+}
+
+/* How To Section */
+.how-to {
+    background: #ffff;
+    padding: 3rem 2rem;
+}
+
+.how-to h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+}
+
+.steps {
+    max-width: 1500px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.step {
+    background: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-weight: bold;
+}
+
+.step-video {
+    width: auto;
+    height: 200px; /* Adjust height as needed */
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Book Section */
+.book {
+    background: #F7F7F7;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.book h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.book-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.book-content p {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.btn-drive {
+    display: inline-block;
+    padding: 1rem 4rem;
+    background-color: #4285F4;
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(66, 133, 244, 0.2);
+}
+
+.btn-drive:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(66, 133, 244, 0.3);
+    background-color: #3367D6;
+}
+
+/*--------------------------------- Team Section ---------------------------------*/
+.team {
+    padding: 4rem 2rem;
+    background-color: #fff; /* Light background for contrast */
+}
+
+.team h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 3rem;
+}
+
+/* Grid Layout */
+.team-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Auto fit columns */
+    gap: 2.5rem;
+    justify-content: center; /* Centers the grid */
+    align-items: center; /* Aligns items in center */
+}
+
+/* Team Member Card */
+.team-member {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Member Image */
+.member-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd; /* Subtle border */
+}
+
+/* Divider */
+.divider {
+    width: 40%; /* Increased width for better visibility */
+    border: 0;
+    height: 1px;
+    background: #ccc;
+    margin: 8px auto; /* Centered */
+}
+
+/* Member Details */
+.member-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 5px;
+}
+
+.member-class {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.member-role {
+    font-size: 0.9rem;
+    color: #777;
+    font-style: italic;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Wider cards */
+    }
+}
+
+@media (max-width: 768px) {
+    .team {
+        padding: 3rem 1rem;
+    }
+    
+    .step-video {
+        height: 180px;
+    }
+    
+    .steps {
+        grid-template-columns: 1fr;
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr; /* Single column for small screens */
+        justify-content: center;
+    }
+}
+
+/*--------------------------------- Footer ---------------------------------*/
+
+.footer {
+    background: #F7F7F7;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.footer-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-logo {
+    height: 60px;
+    width: auto;
+}
+
+.footer-logo-sub {
+    height: 45px;
+    width: auto;
+}
+
+.copyright {
+    color: var(--gray-500);
+    font-size: 0.875rem;
+    margin-top: 2rem;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+.btn-disabled {
+    background: var(--gray-400);
+    color: white;
+    cursor: not-allowed;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.template-card, .step, .team-member {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Navbar Animations */
+@keyframes navFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Navbar container animation */
+.navbar {
+    background: white;
+    position: sticky;
+    padding: 1rem;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    animation: navFadeIn 0.6s ease-out;
+    transition: all 0.3s ease;
+}
+
+/* Logo animations */
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo, .logo-sub {
+    opacity: 0;
+    animation: navFadeIn 0.6s ease-out forwards;
+}
+
+.logo {
+    animation-delay: 0.2s;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.logo-sub {
+    animation-delay: 0.4s;
+}
+
+/* Nav links animation */
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-link {
+    opacity: 0;
+    position: relative;
+    animation: navFadeIn 0.6s ease-out forwards;
+    transition: color 0.3s ease;
+}
+
+.nav-link:nth-child(1) { animation-delay: 0.3s; }
+.nav-link:nth-child(2) { animation-delay: 0.4s; }
+.nav-link:nth-child(3) { animation-delay: 0.5s; }
+.nav-link:nth-child(4) { animation-delay: 0.6s; }
+
+/* Hover effect for nav links */
+.nav-link::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--primary);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.nav-link:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Scroll effect */
+.navbar.scrolled {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Active link state */
+.nav-link.active {
+    color: var(--primary);
+}
+
+.nav-link.active::before {
+    transform: scaleX(1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .top {
+        padding: 4rem 1rem;
+        min-height: 400px;
+    }
+
+    .hero-logo {
+        height: 80px;
+    }
+
+    .hero-logo-sub {
+        height: 60px;
+    }
+
+    .top h1 {
+        font-size: 2rem;
+    }
+
+    .templates {
+        padding: 2rem 1rem;
+    }
+
+    .template-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .steps {
+        grid-template-columns: 1fr;
+    }
+}
